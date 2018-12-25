@@ -68,7 +68,7 @@ test_script:
             exit 5
         fi
         # Tests are finished, turning of VM
-        vboxmanage controlvm tinycorelinux poweroff
+        vboxmanage controlvm $VM poweroff
 
 after_test:
     - sh: pwd
