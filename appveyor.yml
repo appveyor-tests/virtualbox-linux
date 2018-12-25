@@ -14,6 +14,9 @@ install:
           wget http://downloads.sourceforge.net/virtualboximage/tinycore-2.1-x86.7z
         fi
         7z x tinycore-2.1-x86.7z
+        ls -ltr
+        pwd
+   
         VM=tinycorelinux
         VBoxManage createvm --name $VM --ostype Linux26 --register
         VBoxManage storagectl $VM --name "SATA Controller" --add sata --controller IntelAHCI
