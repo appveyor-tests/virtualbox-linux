@@ -61,7 +61,7 @@ test_script:
             exit 4
         fi
 
-        if grep vdi <<< "$VM_LSOF"; then
+        if grep -E "vdi|vmdk" <<< "$VM_LSOF"; then
             echo "VM uses vdi file"
         else
             echo "VM does not use vdi file!";
