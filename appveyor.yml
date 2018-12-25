@@ -14,16 +14,16 @@ install:
           wget http://downloads.sourceforge.net/virtualboximage/tinycore-2.1-x86.7z
         fi
         7z x tinycore-2.1-x86.7z
-
-test_script:
-    - sh: |
         VM=tinycorelinux
         VBoxManage createvm --name $VM --ostype Linux26 --register
         VBoxManage storagectl $VM --name "SATA Controller" --add sata --controller IntelAHCI
-        VBoxManage storageattach $VM --storagectl "SATA Controller" --port 0 --device 0 --type hdd --medium $VM.vdi
+        VBoxManage storageattach $VM --storagectl "SATA Controller" --port 0 --device 0 --type hdd --medium VDI/tinycore-2.1-x86.vdi
         VBoxManage modifyvm $VM --memory 1024 --vram 128
         vboxmanage modifyvm $VM --nictype1 Am79C973
         vboxmanage modifyvm $VM --cableconnected1 on
+
+test_script:
+    - sh: |
         vboxmanage modifyvm $VM --hwvirtex off
         vboxmanage modifyvm $VM --vtxvpid off
         vboxmanage modifyvm $VM --vrde on
@@ -51,7 +51,7 @@ test_script:
         fi
         VM_LSOF=$(sudo lsof -p $VM_PID)
 
-        if grep 3389 <<< "$VM_LSOF"; then 
+        if grep ":3389 (LISTEN)" <<< "$VM_LSOF"; then 
             echo "VRDE port LISTENs"
         else
             echo "VRDE port not in use!";
