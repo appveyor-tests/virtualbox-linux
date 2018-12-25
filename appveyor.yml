@@ -5,25 +5,28 @@ init:
     - sh: vboxmanage --version
 
 install:
-    # - sh: |
-    #     if [ ! -f "vm1.ova" ]; then
-    #        wget -O "vm1.ova" https://netcologne.dl.sourceforge.net/project/debian32bitvbox/OVA-image/vm1%5B32bit%5D.ova
-    #     fi
     - sh: |
-        if [ ! -f tinycore-2.1-x86.7z ]; then
-          wget http://downloads.sourceforge.net/virtualboximage/tinycore-2.1-x86.7z
+        if [ ! -f "vm1.ova" ]; then
+           wget -O "vm1.ova" https://netcologne.dl.sourceforge.net/project/debian32bitvbox/OVA-image/vm1%5B32bit%5D.ova
         fi
-        7z x tinycore-2.1-x86.7z
-        VM=tinycorelinux
-        VBoxManage createvm --name $VM --ostype Linux26 --register
-        VBoxManage storagectl $VM --name "SATA Controller" --add sata --controller IntelAHCI
-        VBoxManage storageattach $VM --storagectl "SATA Controller" --port 0 --device 0 --type hdd --medium VDI/tinycore-2.1-x86.vdi
-        VBoxManage modifyvm $VM --memory 1024 --vram 128
-        vboxmanage modifyvm $VM --nictype1 Am79C973
-        vboxmanage modifyvm $VM --cableconnected1 on
+        VM=debian32
+        VBoxManage import 
+    # - sh: |
+    #     if [ ! -f tinycore-2.1-x86.7z ]; then
+    #       wget http://downloads.sourceforge.net/virtualboximage/tinycore-2.1-x86.7z
+    #     fi
+    #     7z x tinycore-2.1-x86.7z
+    #     VM=tinycorelinux
+    #     VBoxManage createvm --name $VM --ostype Linux26 --register
+    #     VBoxManage storagectl $VM --name "SATA Controller" --add sata --controller IntelAHCI
+    #     VBoxManage storageattach $VM --storagectl "SATA Controller" --port 0 --device 0 --type hdd --medium VDI/tinycore-2.1-x86.vdi
+    #     VBoxManage modifyvm $VM --memory 1024 --vram 128
+
 
 test_script:
     - sh: |
+        vboxmanage modifyvm $VM --nictype1 Am79C973
+        vboxmanage modifyvm $VM --cableconnected1 on
         vboxmanage modifyvm $VM --hwvirtex off
         vboxmanage modifyvm $VM --vtxvpid off
         vboxmanage modifyvm $VM --vrde on
