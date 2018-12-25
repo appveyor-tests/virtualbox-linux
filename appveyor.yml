@@ -72,7 +72,7 @@ test_script:
 
 after_test:
     - sh: pwd
-    - sh: ls -l ${APPVEYOR_BUILD_FOLDER}/*.7z
+    - sh: ls -l ${APPVEYOR_BUILD_FOLDER}/*
 
 build: off
 
