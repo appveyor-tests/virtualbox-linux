@@ -72,5 +72,5 @@ test_script:
 build: off
 
 cache:
-    - '*.ova'
-    - "*.7z"
+    - ${APPVEYOR_BUILD_FOLDER}/*.ova
+    - ${APPVEYOR_BUILD_FOLDER}/*.7z
