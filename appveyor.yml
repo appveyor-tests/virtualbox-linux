@@ -10,6 +10,7 @@ install:
            wget -O "debian32.ova" https://netcologne.dl.sourceforge.net/project/debian32bitvbox/OVA-image/vm1%5B32bit%5D.ova
         fi
         VM=vm1
+        sudo /sbin/vboxconfig
         VBoxManage import "debian32.ova"
     # - sh: |
     #     if [ ! -f tinycore-2.1-x86.7z ]; then
