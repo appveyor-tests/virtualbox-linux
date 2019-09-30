@@ -7,11 +7,11 @@ init:
         errstatus=1
         while [ $counter -le 30 ] && [ $errstatus = 1 ]; do
             echo Waiting for vboxdrv kernel module to load...
-            if lsmod |grep vboxdrv2; then errstatus=0; break; else errstatus=1; sleep 5s; fi
+            if lsmod |grep vboxdrv; then errstatus=0; break; else errstatus=1; sleep 5s; fi
             ((counter++))
         done
     - sh: vboxmanage --version
-
+    - sh: lsmod |grep vboxdrv
 install:
     - sh: |
         if [ ! -f "debian32.ova" ]; then
