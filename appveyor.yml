@@ -2,7 +2,14 @@ init:
     - appveyor version
     - sh: echo $APPVEYOR_BUILD_WORKER_CLOUD
     - sh: echo $APPVEYOR_BUILD_WORKER_IMAGE
-    - sh: lsmod |grep vboxdrv
+    - sh: |
+        local counter=1
+        local errstatus=1
+        while [ $counter -le 30 ] && [ $errstatus = 1 ]; do
+            echo Waiting for vboxdrv kernel module to load...
+            if lsmod |grep vboxdrv2; then errstatus=0; break; else errstatus=1; sleep 5s; fi
+            ((counter++))
+        done
     - sh: vboxmanage --version
 
 install:
