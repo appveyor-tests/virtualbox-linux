@@ -16,7 +16,7 @@ init:
 install:
     - sh: |
         if [ ! -f "debian32.ova" ]; then
-           wget -O "debian32.ova" https://netcologne.dl.sourceforge.net/project/debian32bitvbox/OVA-image/vm1%5B32bit%5D.ova
+           wget -O "debian32.ova" https://phoenixnap.dl.sourceforge.net/project/debian32bitvbox/OVA-image/vm1%5B32bit%5D.ova
         fi
         VM=vm1
         #sudo /sbin/vboxconfig
