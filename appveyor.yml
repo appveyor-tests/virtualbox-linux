@@ -63,8 +63,8 @@ test_script:
             exit 3
         fi
         VM_LSOF=$(sudo lsof -p $VM_PID)
-        echo $VM_LSOF
-        if grep ":3389 (LISTEN)" <<< "$VM_LSOF"; then 
+
+        if grep ":3389 (LISTEN)\|:ms-wbt-server (LISTEN)" <<< "$VM_LSOF"; then 
             echo "VRDE port LISTENs"
         else
             echo "VRDE port not in use!";
